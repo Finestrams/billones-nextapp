@@ -39,11 +39,8 @@ export default function SignupPage() {
     // Password validation
     if (!password) {
       newErrors.password = "Password is required.";
-    } else if (password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters.";
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password)) {
-      newErrors.password =
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number.";
+    } else if (password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters.";
     }
 
     // Confirm password validation
