@@ -19,10 +19,47 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+}
+
+/* Sleek, subtle scrollbar — premium feel */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(99, 102, 241, 0.25);
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(99, 102, 241, 0.45);
+    background-clip: padding-box;
+  }
+}
+
+/* Accessible, branded focus ring */
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid rgb(99 102 241 / 0.7);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
 }
 
 @keyframes fade-in {
@@ -36,8 +73,50 @@ body {
   }
 }
 
+@keyframes blob-float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(15px, -20px) scale(1.05);
+  }
+  66% {
+    transform: translate(-10px, 15px) scale(0.97);
+  }
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fade-in 0.6s ease-out forwards;
+    will-change: transform, opacity;
+  }
+
+  .animate-blob {
+    animation: blob-float 14s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  /* Premium soft-glow ring used on auth cards and CTAs */
+  .ring-glow {
+    box-shadow:
+      0 0 0 1px rgb(99 102 241 / 0.08),
+      0 10px 40px -10px rgb(59 130 246 / 0.25),
+      0 20px 60px -20px rgb(139 92 246 / 0.2);
+  }
+
+  /* Subtle hairline border for dark surfaces */
+  .border-hairline {
+    border-color: rgb(255 255 255 / 0.06);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
